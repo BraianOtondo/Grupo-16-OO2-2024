@@ -1,29 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-           
-    </body>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/57faba85b1.js" crossorigin="anonymous"></script>
+	<title>Stock System</title>
+	<link href="/css/bienvenida.css" rel="stylesheet">
+	<style>
+		:root {
+			--bg-color: #111;
+			--text-color: #fff;
+			--header-bg: #222;
+			--nav-bg: #333;
+			--banner-bg: #444;
+			--hover-bg: #555;
+			--button-bg: #666;
+			--button-hover-bg: #777;
+			--button-color: #fff;
+		}
+
+		body {
+			background-color: var(--bg-color);
+			color: var(--text-color);
+			font-family: 'Teko', sans-serif;
+			margin: 0;
+			padding: 0;
+			line-height: 1.6;
+		}
+
+		.encabezado {
+			background-color: var(--header-bg);
+			padding: 1rem 0;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.header-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 2rem;
+		}
+
+		.logo-container h1 {
+			margin: 0;
+			font-size: 2rem;
+			letter-spacing: 1px;
+		}
+
+		.cerrar-sesion {
+			display: flex;
+			align-items: center;
+		}
+
+		.iconos a,
+		.iconos {
+			margin-right: 10px;
+		}
+
+		.logOut a {
+			color: var(--text-color);
+			text-decoration: none;
+			margin-left: 1rem;
+			transition: color 0.3s ease;
+			padding: 10px 15px;
+			transition: all 0.3s ease;
+		}
+
+		.iconos a:hover,
+		.logOut a:hover {
+			color: #ddd;
+			background-color: var(--hover-bg);
+			border-radius: 5px;
+		}
+
+		.navegador {
+			background-color: var(--nav-bg);
+			padding: 0.5rem 0;
+		}
+
+		.opciones {
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		.opciones li {
+			margin-right: 20px;
+		}
+
+		.opciones li a {
+			color: var(--text-color);
+			text-decoration: none;
+			padding: 0.5rem 1rem;
+			margin: 0 0.5rem;
+			transition: all 0.3s ease;
+			border-radius: 4px;
+		}
+
+		.opciones li a:hover {
+			background-color: var(--hover-bg);
+			border-radius: 5px;
+		}
+
+		.banner {
+			background-color: var(--banner-bg);
+			padding: 4rem 0;
+			text-align: center;
+		}
+
+		.texto-banner {
+			font-size: 2.5rem;
+			margin-bottom: 1rem;
+		}
+
+		.boton-primario {
+			background-color: var(--button-bg);
+			color: var(--button-color);
+			border: none;
+			padding: 0.75rem 1.5rem;
+			font-size: 1.25rem;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+			cursor: pointer;
+		}
+
+		.boton-primario:hover {
+			background-color: var(--button-hover-bg);
+		}
+	</style>
+	<style>
+		@media (max-width: 768px) {
+			.header-nav {
+				flex-direction: column;
+				text-align: center;
+			}
+
+			.cerrar-sesion {
+				margin-top: 1rem;
+			}
+
+			.opciones {
+				flex-direction: column;
+			}
+
+			.opciones li {
+				margin: 0.5rem 0;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header class="encabezado">
+		<nav class="header-nav">
+			<div class="logo-container">
+				<h1>System Stock</h1>
+			</div>
+			<div class="cerrar-sesion">
+				<div class="iconos">
+					<a th:href="@{/carrito}"><i class="fa-solid fa-cart-shopping" width="40%"></i></a>
+				</div>
+				<div class="logOut">
+					<a th:href="@{/logout}">
+						<p>Logout</p>
+					</a>
+				</div>
+			</div>
+		</nav>
+		<nav class="navegador">
+			<ul class="opciones">
+				<li><a th:href="@{/index}">Start</a></li>
+				<li><a th:href="@{/product}">Products</a></li>
+				<li><a th:href="@{/pedidosAprov}">Supplies</a></li>
+				<li><a th:href="@{/stock}">Stock</a></li>
+			</ul>
+		</nav>
+	</header>
+	<section class="banner">
+		<div class="banner-overlay"></div>
+		<div class="banner-content">
+			<h2 class="texto-banner">Welcome to the Stock System</h2>
+			<p class="subtexto-banner">Your ultimate solution for efficient inventory management.</p>
+		</div>
+	</section>
+	<footer style="background-color: var(--nav-bg); padding: 1rem 0; text-align: center;">
+		<p style="margin: 0;">&copy; 2024 Stock System. All rights reserved.</p>
+	</footer>
+</body>
+
 </html>
